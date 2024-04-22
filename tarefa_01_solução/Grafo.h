@@ -1,32 +1,36 @@
 /*
  * Tarefa 01 - Grafo - Listas de Adjacencia
  *
- * GEN254 - Grafos - 2023/1
+ * GEN254 - Grafos - 2024/1
  *
- * Nome:      XXXX
- * Matricula: XXXX
+ * Nome:      Gabriel Henrique Menoncin
+ * Matricula: 2121101065
+ * 
+ * Nome:      José Vítor Tessaro de Bortoli
+ * Matricula: 2121101041
  */
 
 #ifndef GRAFO_H
-
 #define GRAFO_H
 
 #include "Aresta.h"
+#include <vector>
 
 class Grafo {
 public:
-    Grafo(int num_vertices);
-    // ~Grafo(); // Se necessario
-    int num_arestas();
-    void insere_aresta(Aresta e);
-    void remove_aresta(Aresta e);
-    int grau_maximo();
-    int grau_minimo();
-    void imprime();
+    Grafo(int num_vertices); // Construtor
+    ~Grafo(); // Destrutor
+    int num_arestas(); // Retorna o número de arestas no grafo
+    void insere_aresta(Aresta e); // Insere uma aresta no grafo
+    void remove_aresta(Aresta e); // Remove uma aresta do grafo
+    bool eh_clique(int N, int* conjuntoVertices); // Verifica se um conjunto de vértices é uma clique
+    bool existe_caminho_restrito(int origem, int destino, int arestaOrigem, int arestaDestino); // Verifica se existe um caminho restrito entre dois vértices
+    void imprime_graus(); // Imprime os graus dos vértices do grafo
 private:
-    int num_vertices_;
-    int num_arestas_;
-    std::vector<Aresta> lista_arestas_;
+    int num_vertices_; // Número de vértices no grafo
+    int num_arestas_; // Número de arestas no grafo
+    std::vector<std::vector<bool>> matriz_adjacencia_; // Matriz de adjacência para representar o grafo
 };
 
 #endif /* GRAFO_H */
+
