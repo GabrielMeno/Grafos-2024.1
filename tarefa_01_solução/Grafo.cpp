@@ -55,28 +55,40 @@ bool Grafo::eh_clique(int N, int* conjuntoVertices) {
 }
 
 bool Grafo::existe_caminho_restrito(int origem, int destino, int arestaOrigem, int arestaDestino) {
-    // Buscando um caminho entre origem e destino, excluindo a aresta especificada
+    // Inicializa um vetor de booleanos para marcar os vértices visitados durante a busca
     std::vector<bool> visitado(num_vertices_, false);
+    // Inicializa uma fila para armazenar os vértices a serem visitados
     std::vector<int> fila;
+    // Adiciona o vértice de origem à fila
     fila.push_back(origem);
+    // Marca a aresta especificada como visitada para evitar ciclos
     visitado[arestaOrigem] = true;
 
+    // Realiza a busca em largura no grafo
     while (!fila.empty()) {
+        // Remove o vértice atual da fila
         int atual = fila.front();
         fila.erase(fila.begin());
 
+        // Percorre todos os vértices adjacentes ao vértice atual
         for (int i = 0; i < num_vertices_; ++i) {
+            // Verifica se há uma aresta entre o vértice atual e o vértice i,
+            // se o vértice i ainda não foi visitado e se a aresta não é a aresta restrita
             if (matriz_adjacencia_[atual][i] && !visitado[i] && !(atual == arestaOrigem && i == arestaDestino)) {
+                // Se o vértice i for o destino, retorna true, indicando que há um caminho entre origem e destino
                 if (i == destino) {
                     return true;
                 }
+                // Caso contrário, adiciona o vértice i à fila e marca como visitado
                 fila.push_back(i);
                 visitado[i] = true;
             }
         }
     }
+    // Se nenhum caminho entre origem e destino for encontrado, retorna false
     return false;
 }
+
 
 void Grafo::imprime_graus() {
     // Calculando e imprimindo o grau de cada vértice
